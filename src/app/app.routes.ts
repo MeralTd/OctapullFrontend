@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import { MeetingListComponent } from './components/meeting-list/meeting-list.component';
+import { AddMeetingComponent } from './components/add-meeting/add-meeting.component';
 
 export const routes: Routes = [
   {
@@ -18,24 +19,12 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./pages/pages.routes').then((m) => m.PagesRoutes),
       },
-      { path: 'meetings', component: MeetingListComponent },
+      { path: 'add-meeting', component: AddMeetingComponent },
 
 
     ],
   },
-  {
-    path: '',
-    component: FullComponent,
-    children: [
-      {
 
-        path: 'add-meeting',
-        loadChildren: () =>
-          import('./pages/pages.routes').then((m) => m.PagesRoutes),
-      },
-      { path: 'add-meeting', component: MeetingListComponent },
-    ],
-  },
   {
     path: '',
     component: BlankComponent,

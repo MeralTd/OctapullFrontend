@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MaterialModule } from '../../material.module';
+import { MeetingService } from '../../services/meeting.service';
+
 interface Meeting {
-  id: string;
+  id: number;
   meetingName: string;
   startDate: string;
   endDate: string;
@@ -19,17 +21,32 @@ export class MeetingListComponent implements OnInit {
   meetings: Meeting[] = [];
   displayedColumns: string[] = ['meetingName', 'startDate', 'endDate', 'description', 'actions']; // Burada gösterilecek kolonları belirliyoruz
 
-  constructor(private http: HttpClient) {}
+  constructor(private meetingService: MeetingService) {}
 
   ngOnInit(): void {
     this.getMeetings();
   }
 
+  // getMeetings(): void {
+  //   this.http.get<any>('http://localhost:5148/api/Meetings/GetAll').subscribe(
+  //     (data) => {
+  //       this.meetings = data?.data;
+  //       console.log(data);
+  //     },
+  //     (error) => {
+  //       console.error('Toplantılar alınırken hata oluştu: ', error);
+  //     }
+  //   );
+  // }
+
+
+
+
   getMeetings(): void {
-    this.http.get<any>('http://localhost:5148/api/Meetings/GetAll').subscribe(
+    this.meetingService.getMeetings().subscribe(
       (data) => {
-        this.meetings = data?.data;
         console.log(data);
+        this.meetings = data?.data || [];
       },
       (error) => {
         console.error('Toplantılar alınırken hata oluştu: ', error);
@@ -37,8 +54,8 @@ export class MeetingListComponent implements OnInit {
     );
   }
 
-  cancelMeeting(meetingId: string): void {
-    this.http.post(`http://localhost:5148/api/Meetings/Delete/${meetingId}`,null).subscribe(
+  cancelMeeting(meetingId: number): void {
+    this.meetingService.deleteMeeting(meetingId).subscribe(
       () => {
         this.meetings = this.meetings.filter(meeting => meeting.id !== meetingId);
       },

@@ -6,7 +6,7 @@ import { MeetingListComponent } from '../../components/meeting-list/meeting-list
   selector: 'app-starter',
   imports: [
     MaterialModule,
-    MeetingListComponent
+    MeetingListComponent,
     ],
   templateUrl: './starter.component.html',
   encapsulation: ViewEncapsulation.None,
