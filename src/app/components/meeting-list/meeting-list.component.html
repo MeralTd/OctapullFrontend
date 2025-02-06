@@ -1,0 +1,98 @@
+<!-- <div class="meeting-list">
+  <h2>Toplantılar</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Meeting Name</th>
+        <th>Start Date</th>
+        <th>Bitiş Tarihi</th>
+        <th>Açıklama</th>
+        <th>İşlemler</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let meeting of meetings">
+        <td>{{ meeting.meetingName }}</td>
+        <td>{{ meeting.startDate }}</td>
+        <td>{{ meeting.endDate }}</td>
+        <td>{{ meeting.description }}</td>
+        <td>
+          <button (click)="deleteMeeting(meeting._id)">Sil</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+      <div class="d-flex">
+          <div class="m-r-auto">
+              <mat-card-title>Meetings</mat-card-title>
+          </div>
+
+      </div>
+      <div class="table-responsive">
+
+        <table mat-table [dataSource]="meetings" class="mat-elevation-z8">
+
+
+          <ng-container matColumnDef="meetingName">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-l-0">
+              Meeting Name
+            </th>
+            <td mat-cell *matCellDef="let meeting" class="p-l-0">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16">
+                  <h6 class="f-s-14 f-w-600">
+                    {{ meeting.meetingName }}
+                  </h6>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="startDate">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+              Start Date
+            </th>
+            <td mat-cell *matCellDef="let meeting">
+                {{ meeting.startDate }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="endDate">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+              End Date
+            </th>
+            <td mat-cell *matCellDef="let meeting">
+                {{ meeting.endDate }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+              Description
+            </th>
+            <td mat-cell *matCellDef="let meeting">
+                {{ meeting.description }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+              Actions
+            </th>
+            <td mat-cell *matCellDef="let meeting">
+              <button mat-stroked-button (click)="cancelMeeting(meeting.id)" class="bg-warning text-white">Cancel</button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+      </div>
+  </mat-card-content>
+</mat-card>
