@@ -1,3 +1,36 @@
+
+
+<form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="meetingName">Toplantı Adı</label>
+    <input id="meetingName" formControlName="meetingName" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="startDate">Başlangıç Tarihi</label>
+    <input id="startDate" type="datetime-local" formControlName="startDate" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="endDate">Bitiş Tarihi</label>
+    <input id="endDate" type="datetime-local" formControlName="endDate" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="description">Açıklama</label>
+    <textarea id="description" formControlName="description" class="form-control"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="document">Doküman Yükle</label>
+    <input type="file" formControlName="document" (change)="onFileChange($event)" />
+
+  </div>
+
+  <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>
+
+
 <mat-card class="cardWithShadow">
   <mat-card-content>
       <div class="d-flex">
@@ -58,7 +91,10 @@
               Actions
             </th>
             <td mat-cell *matCellDef="let meeting">
+              <button mat-stroked-button (click)="onEdit(meeting.id)" class="bg-success text-white">Edit</button>
               <button mat-stroked-button (click)="cancelMeeting(meeting.id)" class="bg-warning text-white">Cancel</button>
+              <button mat-stroked-button (click)="deleteMeeting(meeting.id)" class="bg-error text-white">Delete</button>
+
             </td>
           </ng-container>
 
@@ -70,3 +106,5 @@
       </div>
   </mat-card-content>
 </mat-card>
+
+

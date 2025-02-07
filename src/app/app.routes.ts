@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import { AddMeetingComponent } from './components/add-meeting/add-meeting.component';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from './guards/auth.guard.service';
 
 export const routes: Routes = [
   {

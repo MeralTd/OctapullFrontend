@@ -33,8 +33,8 @@ export class AppLoginComponent {
       this.authService.login(this.loginForm.value).subscribe(
         {
           next: (response) => {
-            this.authService.setToken(response.data.token);
-            this.authService.setUserName(response.data.refreshToken.user.firstName + ' '+ response.data.refreshToken.user.lastName);
+            this.authService.setToken(response.data.accessToken.token);
+            this.authService.setUser(response.data.user);
             this.router.navigate(['/meetings']);
           },
           error: (err) => {

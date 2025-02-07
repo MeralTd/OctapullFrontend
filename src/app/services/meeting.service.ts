@@ -10,19 +10,30 @@ export class MeetingService {
 
   constructor(private http: HttpClient) {}
 
-  createMeeting(meeting: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/Add`, meeting);
-  }
 
   getMeetings(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/GetAll`);
   }
 
-  updateMeeting(id: number, meeting: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, meeting);
+
+  getMeetingById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/Get/${id}`);
   }
 
-  deleteMeeting(id: number, meetingId?: string): Observable<any> {
+  createMeeting(meeting: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/Add`, meeting);
+  }
+
+
+  updateMeeting(meeting: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/Update`, meeting);
+  }
+
+  deleteMeeting(id: number): Observable<any> {
     return this.http.post(`${this.apiUrl}/Delete/${id}`,null);
+  }
+
+  cancelMeeting(id: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/CancelMeeting/${id}`,null);
   }
 }

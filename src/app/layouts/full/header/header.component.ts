@@ -31,7 +31,12 @@ export class HeaderComponent {
   userName: string | null = null;
 
   constructor(private authService: AuthService) {
-    this.userName = this.authService.getUserName();
+    const user = this.authService.getUser();
+    if (user) {
+      this.userName = user.firstName + ' ' + user.lastName;
+    } else {
+      this.userName = '';
+    }
   }
 
   logout(): void {
