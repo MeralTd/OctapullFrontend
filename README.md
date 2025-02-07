@@ -6,6 +6,13 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 https://github.com/MeralTd/OctapullProject.git
 
+
+# Screenshot
+![2](https://github.com/MeralTd/OctapullFrontend/blob/master/public/SingIn.PNG)
+![3](https://github.com/MeralTd/OctapullFrontend/blob/master/public/SingUp.PNG)
+![1](https://github.com/MeralTd/OctapullFrontend/blob/master/public/mettinglist.PNG)
+![4](https://github.com/MeralTd/OctapullFrontend/blob/master/public/add-metting.PNG)
+
 ## Development server
 
 To start a local development server, run:
