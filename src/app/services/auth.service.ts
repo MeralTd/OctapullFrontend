@@ -29,12 +29,16 @@ export class AuthService {
 
     if (storedUser) {
       try {
-        this.user = JSON.parse(storedUser) as User;
+        const userObj: User = JSON.parse(storedUser);
+        this.user = userObj;
+        console.log(userObj);
       } catch (error) {
-        console.error("Error parsing user from localStorage:", error);
-        this.user = null;
+        console.error("JSON parsing error: ", error);
       }
+    } else {
+      console.log("No user data found in localStorage.");
     }
+
 
   }
 
@@ -66,6 +70,7 @@ export class AuthService {
   }
 
   getUser() {
+    console.log("get",this.user)
     return this.user;
     // return { user: { userName: this.userName, email: this.emailAdress } };
   }
