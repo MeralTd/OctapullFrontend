@@ -10,6 +10,7 @@ import { MaterialModule } from '../../../material.module';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -27,4 +28,13 @@ export class HeaderComponent {
   @Input() showToggle = true;
   @Input() toggleChecked = false;
   @Output() toggleMobileNav = new EventEmitter<void>();
+  userName: string | null = null;
+
+  constructor(private authService: AuthService) {
+    this.userName = this.authService.getUserName();
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
 }

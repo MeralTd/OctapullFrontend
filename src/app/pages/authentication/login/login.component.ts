@@ -31,27 +31,19 @@ export class AppLoginComponent {
 
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
-        (data) => {
-          console.log(data);
-        },
-        (error) => {
-          console.error('Error ', error);
+        {
+          next: (response) => {
+            this.authService.setToken(response.data.token);
+            this.authService.setUserName(response.data.refreshToken.user.firstName + ' '+ response.data.refreshToken.user.lastName);
+            this.router.navigate(['/meetings']);
+          },
+          error: (err) => {
+            console.error('Login failed', err);
+          }
         }
       );
     }
+
   }
-
-  // onLogin(): void {
-  //   this.authService.login(this.username, this.password).subscribe({
-  //     next: (response) => {
-  //       this.authService.setToken(response.token);
-  //       this.router.navigate(['/dashboard']); // Redirect to dashboard on successful login
-  //     },
-  //     error: (err) => {
-  //       console.error('Login failed', err);
-  //     }
-  //   });
-  // }
-
 
 }
