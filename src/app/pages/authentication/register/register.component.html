@@ -7,24 +7,35 @@
             <h4 class="f-w-700 f-s-24 m-0">SING UP</h4>
           </div>
 
-          <form class="m-t-30">
-            <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Name</mat-label>
+          <form class="m-t-30" [formGroup]="registerForm" (submit)="onSubmit()">
+            <mat-label class="f-s-14 f-w-600 m-b-12 d-block">First Name </mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput />
+              <input matInput formControlName="firstName" type="text" />
             </mat-form-field>
+
+            <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Last Name</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="lastName" type="text" />
+            </mat-form-field>
+
             <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Email Adddress</mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput type="email" />
+              <input matInput formControlName="email" type="email" />
             </mat-form-field>
+
+            <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Phone Number</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="phoneNumber" />
+            </mat-form-field>
+
             <!-- password -->
             <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Password</mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput type="password" />
+              <input matInput formControlName="password" type="password" />
             </mat-form-field>
 
-            <a [routerLink]="['/']" mat-flat-button color="primary" class="w-100">
-              Sign Up
-            </a>
+            <button mat-flat-button color="primary" class="w-100">Sign Up</button>
+
             <!-- input -->
           </form>
           <span class="d-block f-w-500 text-center m-t-24">Already have an Account?
