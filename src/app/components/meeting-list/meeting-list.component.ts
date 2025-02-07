@@ -13,7 +13,6 @@ interface Meeting {
   startDate: string;
   endDate: string;
   description: string;
-  document: string | null;
 }
 
 @Component({
@@ -33,6 +32,7 @@ export class MeetingListComponent implements OnInit {
 
   ngOnInit(): void {
     this.meetingForm = this.fb.group({
+      id: [],
       meetingName: ['', [Validators.required]],
       startDate: ['', [Validators.required]],
       endDate: ['', [Validators.required]],
@@ -85,35 +85,15 @@ export class MeetingListComponent implements OnInit {
     });
   }
 
-  onFileChange(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      console.log(file)
-      this.meetingForm.patchValue({
-        document: file
-      });
-    }
-  }
-
-
 
   onSubmit(): void {
     console.log(this.meetingForm)
 
     if (this.meetingForm.valid) {
       const meetingData = this.meetingForm.value;
-      // const formData = new FormData();
-      // formData.append('meetingName', meetingData.meetingName);
-      // formData.append('startDate', meetingData.startDate);
-      // formData.append('endDate', meetingData.endDate);
-      // formData.append('description', meetingData.description);
-
-      // if (this.selectedFile) {
-      //   formData.append('document', this.selectedFile);
-      // }
 
       if (this.editMeetingId) {
-        this.meetingService.updateMeeting(meetingData.value).subscribe(() => {
+        this.meetingService.updateMeeting(meetingData).subscribe(() => {
           this.getMeetings();
           this.resetForm();
         });

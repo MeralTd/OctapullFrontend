@@ -1,110 +1,123 @@
-
-
-<form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="meetingName">Toplantı Adı</label>
-    <input id="meetingName" formControlName="meetingName" class="form-control" />
+<form [formGroup]="meetingForm" (ngSubmit)="onSubmit()" *ngIf="editMode">
+  <div class="p-16 bg-light-primary rounded">
+    <h5 class="f-s-14 text-primary d-flex align-items-center f-w-600">
+      Update Meeting
+    </h5>
   </div>
 
-  <div class="form-group">
-    <label for="startDate">Başlangıç Tarihi</label>
-    <input id="startDate" type="datetime-local" formControlName="startDate" class="form-control" />
+  <div class="row m-t-20">
+    <div class="col-lg-12">
+      <!-- input -->
+      <mat-label class="f-s-14 f-w-600 submitm-b-8 d-block">Meeting Name</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <input matInput formControlName="meetingName" type="text" />
+      </mat-form-field>
+
+      <!-- input -->
+      <mat-label class="f-s-14 f-w-600 m-b-8 d-block">Start Date</mat-label>
+      <mat-form-field appearance="outline" class="w-100">
+        <input matInput formControlName="startDate" [matDatepicker]="picker" />
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <!-- input -->
+      <mat-label class="f-s-14 f-w-600 m-b-8 d-block">End Date</mat-label>
+      <mat-form-field appearance="outline" class="w-100">
+        <input matInput formControlName="endDate" [matDatepicker]="picker2" />
+        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+
+      <!-- input -->
+      <mat-label class="f-s-14 f-w-600 m-b-8 d-block">Description</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <textarea matInput formControlName="description" rows="5"></textarea>
+      </mat-form-field>
+
+    </div>
+
   </div>
 
-  <div class="form-group">
-    <label for="endDate">Bitiş Tarihi</label>
-    <input id="endDate" type="datetime-local" formControlName="endDate" class="form-control" />
-  </div>
-
-  <div class="form-group">
-    <label for="description">Açıklama</label>
-    <textarea id="description" formControlName="description" class="form-control"></textarea>
-  </div>
-
-  <div class="form-group">
-    <label for="document">Doküman Yükle</label>
-    <input type="file" formControlName="document" (change)="onFileChange($event)" />
+  <div class="m-t-12">
+    <button type="submit" mat-flat-button class="m-l-8">Update</button>
 
   </div>
-
-  <button type="submit" class="btn btn-primary">Kaydet</button>
 </form>
 
 
-<mat-card class="cardWithShadow">
+<mat-card class="cardWithShadow m-t-12">
   <mat-card-content>
-      <div class="d-flex">
-          <div class="m-r-auto">
-              <mat-card-title>Meetings</mat-card-title>
-          </div>
-
+    <div class="d-flex">
+      <div class="m-r-auto">
+        <mat-card-title>Meetings</mat-card-title>
       </div>
-      <div class="table-responsive">
 
-        <table mat-table [dataSource]="meetings" class="mat-elevation-z8">
+    </div>
+    <div class="table-responsive">
+
+      <table mat-table [dataSource]="meetings" class="mat-elevation-z8">
 
 
-          <ng-container matColumnDef="meetingName">
-            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-l-0">
-              Meeting Name
-            </th>
-            <td mat-cell *matCellDef="let meeting" class="p-l-0">
-              <div class="d-flex align-items-center">
-                <div class="m-l-16">
-                  <h6 class="f-s-14 f-w-600">
-                    {{ meeting.meetingName }}
-                  </h6>
-                </div>
+        <ng-container matColumnDef="meetingName">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-l-0">
+            Meeting Name
+          </th>
+          <td mat-cell *matCellDef="let meeting" class="p-l-0">
+            <div class="d-flex align-items-center">
+              <div class="m-l-16">
+                <h6 class="f-s-14 f-w-600">
+                  {{ meeting.meetingName }}
+                </h6>
               </div>
-            </td>
-          </ng-container>
+            </div>
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="startDate">
-            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
-              Start Date
-            </th>
-            <td mat-cell *matCellDef="let meeting">
-                {{ meeting.startDate | date:'dd-MM-yyyy HH:mm'  }}
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="startDate">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Start Date
+          </th>
+          <td mat-cell *matCellDef="let meeting">
+            {{ meeting.startDate | date:'dd-MM-yyyy HH:mm' }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="endDate">
-            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
-              End Date
-            </th>
-            <td mat-cell *matCellDef="let meeting">
-                {{ meeting.endDate | date:'dd-MM-yyyy HH:mm' }}
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="endDate">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            End Date
+          </th>
+          <td mat-cell *matCellDef="let meeting">
+            {{ meeting.endDate | date:'dd-MM-yyyy HH:mm' }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
-              Description
-            </th>
-            <td mat-cell *matCellDef="let meeting">
-                {{ meeting.description }}
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Description
+          </th>
+          <td mat-cell *matCellDef="let meeting">
+            {{ meeting.description }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
-              Actions
-            </th>
-            <td mat-cell *matCellDef="let meeting">
-              <button mat-stroked-button (click)="onEdit(meeting.id)" class="bg-success text-white">Edit</button>
-              <button mat-stroked-button (click)="cancelMeeting(meeting.id)" class="bg-warning text-white">Cancel</button>
-              <button mat-stroked-button (click)="deleteMeeting(meeting.id)" class="bg-error text-white">Delete</button>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Actions
+          </th>
+          <td mat-cell *matCellDef="let meeting">
+            <button mat-stroked-button (click)="onEdit(meeting.id)" class="bg-success text-white">Edit</button>
+            <button mat-stroked-button (click)="cancelMeeting(meeting.id)" class="bg-warning text-white">Cancel</button>
+            <button mat-stroked-button (click)="deleteMeeting(meeting.id)" class="bg-error text-white">Delete</button>
 
-            </td>
-          </ng-container>
+          </td>
+        </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-        </table>
+      </table>
 
-      </div>
+    </div>
   </mat-card-content>
 </mat-card>
-
-

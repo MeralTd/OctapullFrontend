@@ -14,7 +14,6 @@ import { AuthService } from '../../services/auth.service';
 })
 export class AddMeetingComponent {
   meetingForm: FormGroup;
-  fileToUpload: File | null = null;
 
   constructor(private authService: AuthService, private meetingService: MeetingService, private fb: FormBuilder) {
     this.meetingForm = this.fb.group({
@@ -31,35 +30,16 @@ export class AddMeetingComponent {
       console.log(this.meetingForm.value);
     }
 
-    const formData = new FormData();
-    formData.append('meetingName', this.meetingForm.value.name);
-    formData.append('startDate', this.meetingForm.value.startDate);
-    formData.append('endDate', this.meetingForm.value.endDate);
-    formData.append('description', this.meetingForm.value.description);
-    if (this.meetingForm.value.document) {
-      formData.append('document', this.meetingForm.value.document);
-    }
-
-
     const user = this.authService.getUser();
     if (user) {
-      // this.meetingForm.patchValue({ user });
-      formData.append('user', JSON.stringify(user));
-
+      this.meetingForm.patchValue({ user });
     }
 
-    this.meetingService.createMeeting(formData).subscribe(() => {
+   
+
+    this.meetingService.createMeeting(this.meetingForm.value).subscribe(() => {
       this.resetForm();
     });
-  }
-
-  onFileChange(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.meetingForm.patchValue({
-        document: file
-      });
-    }
   }
 
   resetForm() {
