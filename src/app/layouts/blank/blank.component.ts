@@ -15,7 +15,9 @@ export class BlankComponent {
   options: any;
 
   constructor(private settings: CoreService) {
-    this.htmlElement = document.querySelector('html')!;
+    if (typeof document !== 'undefined') {
+      this.htmlElement = document.querySelector('html')!;
+    }
   }
 
   ngOnInit(): void {
